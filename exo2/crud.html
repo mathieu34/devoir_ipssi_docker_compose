@@ -6,71 +6,34 @@
 </head>
 <body>
 
-  <h1>Gestion des utilisateurs</h1>
+<h1>Gestion des utilisateurs</h1>
 
-  <h2>Créer un utilisateur</h2>
-  <input id="username" placeholder="username">
-  <input id="password" placeholder="password">
-  <button onclick="createUser()">Créer</button>
+<h2>Créer un utilisateur</h2>
+<form method="POST" action="/users">
+  <input name="username" placeholder="username" required>
+  <input name="password" placeholder="password" required>
+  <button type="submit">Créer</button>
+</form>
 
-  <h2>Liste des utilisateurs</h2>
-  <button onclick="loadUsers()">Rafraîchir</button>
-  <ul id="users"></ul>
+<h2>Liste des utilisateurs</h2>
 
-  <script>
-    const API_URL = "http://localhost:5000";
+<ul>
+  {% for user in users %}
+    <li>
+      ID {{ user.id }} — {{ user.username }}
 
-    function createUser() {
-      fetch(`${API_URL}/users`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: document.getElementById("username").value,
-          password: document.getElementById("password").value
-        })
-      }).then(() => loadUsers());
-    }
+      <form method="POST" action="/users/{{ user.id }}/delete" style="display:inline">
+        <button></button>
+      </form>
 
-    function loadUsers() {
-      fetch(`${API_URL}/users`)
-        .then(res => res.json())
-        .then(users => {
-          const ul = document.getElementById("users");
-          ul.innerHTML = "";
-          users.forEach(user => {
-            const li = document.createElement("li");
-            li.innerHTML = `
-              ID ${user.id} — ${user.username}
-              <button onclick="deleteUser(${user.id})">❌</button>
-              <button onclick="updateUser(${user.id})">✏️</button>
-            `;
-            ul.appendChild(li);
-          });
-        });
-    }
-
-    function deleteUser(id) {
-      fetch(`${API_URL}/users/${id}`, {
-        method: "DELETE"
-      }).then(() => loadUsers());
-    }
-
-    function updateUser(id) {
-      const newUsername = prompt("Nouveau username ?");
-      const newPassword = prompt("Nouveau password ?");
-      fetch(`${API_URL}/users/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: newUsername,
-          password: newPassword
-        })
-      }).then(() => loadUsers());
-    }
-
-    loadUsers();
-  </script>
+      <form method="POST" action="/users/{{ user.id }}/update" style="display:inline">
+        <input name="username" placeholder="nouveau username" required>
+        <input name="password" placeholder="nouveau password" required>
+        <button></button>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
 
 </body>
 </html>
-
