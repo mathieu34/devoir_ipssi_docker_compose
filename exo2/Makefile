@@ -1,17 +1,28 @@
-NAME=exo1
+NAME=exo2
+
+
+DC=docker compose -p $(NAME)
+
 
 all:
-	docker compose up --build
+	$(DC) up --build
 
 clean:
-	docker compose down
+	$(DC) down
 
 fclean:
-	docker compose down --rmi all --volumes --remove-orphans
-
-re: fclean all
+	$(DC) down --rmi all
 
 purge:
-	docker volume rm ipssi_docker_3_sqlite_data || true
+	$(DC) down -v
+
+re:
+	make purge
+	make all
+
+
+
+
+
 
 

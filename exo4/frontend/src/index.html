@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Utilisateurs</h1>
+<div id="users"></div>
+
+<script>
+fetch("http://localhost:5000/users")
+  .then(r => r.json())
+  .then(users => {
+    const div = document.getElementById("users");
+    users.forEach(u => {
+      div.innerHTML += `
+        <p><strong>${u.name}</strong></p>
+        <img src="${u.photo}" width="100"><hr>
+      `;
+    });
+  });
+</script>
+</body>
+</html>

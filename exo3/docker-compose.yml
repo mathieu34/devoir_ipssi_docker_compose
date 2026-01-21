@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: backend.dockerfile
+    depends_on:
+      - tor
+    environment:
+      - HTTP_PROXY=socks5h://tor:9050
+      - HTTPS_PROXY=socks5h://tor:9050
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build: 
+      context: .
+      dockerfile: frontend.dockerfile
+    ports:
+      - "3000:80"
+  tor:
+    image: dperson/torproxy
+    container_name: tor
+    restart: unless-stopped
+    environment:
+      - LOCATION=FR
+      - STRICT=1
+      - TOR_MaxCircuitDirtiness=600
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - "9050:9050"

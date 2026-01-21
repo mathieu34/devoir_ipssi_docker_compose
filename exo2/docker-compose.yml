@@ -1,18 +1,23 @@
 services:
   backend:
-    build: 
-      context : .
-      dockerfile : backend.dockerfile
+    build:
+      context: .
+      dockerfile: backend.dockerfile
     ports:
       - "5000:5000"
+    volumes:
+      - sqlite_data:/data
 
   frontend:
-    build: 
-      context : . 
-      dockerfile : frontend.dockerfile
+    build:
+      context: .
+      dockerfile: frontend.dockerfile
     ports:
       - "3000:80"
     depends_on:
       - backend
+
+volumes:
+  sqlite_data:
 
 

@@ -1,4 +1,4 @@
-NAME=exo1
+NAME=exo3
 
 
 DC=docker compose -p $(NAME)
@@ -19,9 +19,6 @@ purge:
 re:
 	make purge
 	make all
-
-
-
 
 
 
