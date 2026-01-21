@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD Users</title>
+</head>
+<body>
+
+  <h1>Gestion des utilisateurs</h1>
+
+  <h2>Créer un utilisateur</h2>
+  <input id="username" placeholder="username">
+  <input id="password" placeholder="password">
+  <button onclick="createUser()">Créer</button>
+
+  <h2>Liste des utilisateurs</h2>
+  <button onclick="loadUsers()">Rafraîchir</button>
+  <ul id="users"></ul>
+
+  <script>
+    const API_URL = "http://localhost:5000";
+
+    function createUser() {
+      fetch(`${API_URL}/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value
+        })
+      }).then(() => loadUsers());
+    }
+
+    function loadUsers() {
+      fetch(`${API_URL}/users`)
+        .then(res => res.json())
+        .then(users => {
+          const ul = document.getElementById("users");
+          ul.innerHTML = "";
+          users.forEach(user => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+              ID ${user.id} — ${user.username}
+              <button onclick="deleteUser(${user.id})">❌</button>
+              <button onclick="updateUser(${user.id})">✏️</button>
+            `;
+            ul.appendChild(li);
+          });
+        });
+    }
+
+    function deleteUser(id) {
+      fetch(`${API_URL}/users/${id}`, {
+        method: "DELETE"
+      }).then(() => loadUsers());
+    }
+
+    function updateUser(id) {
+      const newUsername = prompt("Nouveau username ?");
+      const newPassword = prompt("Nouveau password ?");
+      fetch(`${API_URL}/users/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: newUsername,
+          password: newPassword
+        })
+      }).then(() => loadUsers());
+    }
+
+    loadUsers();
+  </script>
+
+</body>
+</html>
+

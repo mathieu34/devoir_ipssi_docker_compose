@@ -1,0 +1,11 @@
+<body>
+  <h1 id="msg">Chargement...</h1>
+
+  <script>
+    fetch("http://localhost:5000/api/hello")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("msg").textContent = data.message;
+      });
+  </script>
+</body>

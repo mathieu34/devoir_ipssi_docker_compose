@@ -1,0 +1,14 @@
+NAME=exo1
+
+all:
+	docker compose up --build
+
+clean:
+	docker compose down
+
+fclean:
+	docker compose down --rmi all --volumes --remove-orphans
+
+re: fclean all
+
+
