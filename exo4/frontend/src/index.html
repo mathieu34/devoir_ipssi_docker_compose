@@ -2,20 +2,20 @@
 <html>
 <body>
 <h1>Utilisateurs</h1>
-<div id="users"></div>
+<ul id="users"></ul>
 
 <script>
-fetch("http://localhost:5000/users")
+fetch("/api/users") 
   .then(r => r.json())
   .then(users => {
-    const div = document.getElementById("users");
+    const ul = document.getElementById("users");
     users.forEach(u => {
-      div.innerHTML += `
-        <p><strong>${u.name}</strong></p>
-        <img src="${u.photo}" width="100"><hr>
-      `;
+      const li = document.createElement("li");
+      li.textContent = u.name;
+      ul.appendChild(li);
     });
   });
 </script>
 </body>
 </html>
+
