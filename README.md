@@ -38,7 +38,7 @@ docker compose exec backend sh
 sqlite3 /data/users.db
 SELECT * FROM users;
 
-
+```
 exo3 :
 
 * make all
@@ -49,6 +49,7 @@ exo4 :
 
 * http://localhost:5000/health
 * http://localhost:5000/users
+
 
 
 
