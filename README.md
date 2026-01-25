@@ -10,10 +10,8 @@ exo 1 :
 
 
 
-\* make all
-
-\* http://localhost:5000/api/hello
-
+* make all
+* http://localhost:5000/api/hello
 * http://localhost:3000/ : frontend
 
 
@@ -22,8 +20,7 @@ exo 2 :
 
 
 
-\* make all
-
+* make all
 * http://localhost:3000 : frontend
 
 
@@ -58,8 +55,7 @@ exo3 :
 
 
 
-\* make all
-
+* make all
 * http://localhost:5000/users : backend 
 * http://localhost:3000/ : frontend 
 
@@ -67,9 +63,9 @@ exo3 :
 
 exo4 : 
 
-\* http://localhost:5000/health
-
+* http://localhost:5000/health
 * http://localhost:5000/users
+
 
 
 
