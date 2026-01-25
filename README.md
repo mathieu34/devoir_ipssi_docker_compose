@@ -24,7 +24,7 @@ exo 2 :
 * http://localhost:3000 : frontend
 
 
-\\- Modifier db depuis container backend :
+- Modifier db depuis container backend :
 
 docker compose exec backend sh
 
@@ -35,7 +35,7 @@ SELECT \\\* FROM users;
 UPDATE users SET username='test' WHERE id=1;
 
 
-\\- Verif depuis container : 
+- Verif depuis container : 
 
 docker compose exec backend sh
 
@@ -61,6 +61,7 @@ exo4 :
 
 * http://localhost:5000/health
 * http://localhost:5000/users
+
 
 
 
