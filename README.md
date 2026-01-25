@@ -25,6 +25,8 @@ exo 2 :
 
 
 - Modifier db depuis container backend :
+
+```bash
 docker compose exec backend sh
 sqlite3 /data/users.db
 SELECT * FROM users;
@@ -33,6 +35,8 @@ UPDATE users SET username='test' WHERE id=1;
 
 
 - Verif depuis container : 
+
+```bash
 docker compose exec backend sh
 sqlite3 /data/users.db
 SELECT * FROM users;
@@ -56,6 +60,7 @@ exo4 :
 
 * http://localhost:5000/health
 * http://localhost:5000/users
+
 
 
 
